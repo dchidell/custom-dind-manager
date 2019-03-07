@@ -46,8 +46,8 @@ services:
       - '1812:1812/udp'
 
   infra_traefik:
-    build: traefik
-    #image: dchidell/traefik-stack-manager
+    #build: traefik
+    image: dchidell/traefik-stack-balancer
     restart: unless-stopped
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
