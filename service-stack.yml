@@ -1,0 +1,74 @@
+version: '2'
+services:
+
+  syslog:
+    #build: syslog
+    image: dchidell/syslog-web
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.port=8080"
+      - "traefik.frontend.rule=PathPrefixStrip: /syslog"
+    ports:
+      - "514:514/udp"
+
+  snmptrap:
+    #build: snmptrap
+    image: dchidell/snmptrap-web
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.port=8080"
+      - "traefik.frontend.rule=PathPrefixStrip: /snmptrap"
+    ports:
+      - "162:162"
+
+  tacacs:
+    #build: tacacs
+    image: dchidell/tacacs-web
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.port=8080"
+      - "traefik.frontend.rule=PathPrefixStrip: /tacacs"
+    ports:
+      - "49:49"
+      
+  radius:
+    #build: radius
+    image: dchidell/radius-web
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.port=8080"
+      - "traefik.frontend.rule=PathPrefixStrip: /radius"
+    ports:
+      - '1812:1812/udp'
+
+  infra_traefik:
+    build: traefik
+    #image: dchidell/traefik-stack-manager
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+      - infra=true
+      - "traefik.enable=true"
+      - "traefik.port=8080"
+      - "traefik.frontend.rule=PathPrefixStrip: /loadbalance"
+      - "traefik.frontend.priority=1"
+    ports:
+      - "80:80"
+
+  infra_flask:
+    #build: flask
+    image: dchidell/flask-stack-manager
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+      - infra=true
+      - "traefik.enable=true"
+      - "traefik.port=8080"
+      - "traefik.frontend.rule=HostRegexp:{catchall:.*}"
+      - "traefik.frontend.priority=1"
