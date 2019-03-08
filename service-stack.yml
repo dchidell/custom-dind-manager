@@ -53,6 +53,8 @@ services:
       - "traefik.enable=true"
       - "traefik.port=8080"
       - "traefik.frontend.rule=PathPrefixStrip: /dns"
+    cap_add:
+      - NET_ADMIN # Required for ephemeral port usage
     ports:
       - '53:53/udp'
 
