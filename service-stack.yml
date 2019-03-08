@@ -45,6 +45,17 @@ services:
     ports:
       - '1812:1812/udp'
 
+  dns:
+    #build: dnsmasq
+    image: dchidell/dnsmasq-web
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.port=8080"
+      - "traefik.frontend.rule=PathPrefixStrip: /dns"
+    ports:
+      - '53:53/udp'
+
   infra_traefik:
     #build: traefik
     image: dchidell/traefik-stack-balancer
