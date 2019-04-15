@@ -1,7 +1,7 @@
 FROM docker:18.06.3
 MAINTAINER David Chidell (dchidell@cisco.com)
 
-RUN apk --no-cache add py-pip sudo && \
+RUN apk --no-cache add py-pip sudo gcc && \
     pip install docker-compose
 
 ADD . /compose/service-stack/
