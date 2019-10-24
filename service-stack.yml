@@ -72,6 +72,19 @@ services:
       - SYS_TIME # Required for hardware time clock sync
     ports:
       - '123:123/udp'
+      
+  vpn:
+    image: dchidell/vpnweb
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.port=8080"
+      - "traefik.frontend.rule=PathPrefixStrip: /vpn"
+    cap_add:
+      - NET_ADMIN # Required for hardware tunnel interfaces & routes
+    ports:
+      - '443:443/tcp'
+      - '443:443/udp'
 
   infra_traefik:
     #build: traefik
