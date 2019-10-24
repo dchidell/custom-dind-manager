@@ -74,7 +74,7 @@ services:
       - '123:123/udp'
       
   vpn:
-    image: dchidell/vpnweb
+    image: dchidell/vpn-web
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
