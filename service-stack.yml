@@ -105,8 +105,10 @@ services:
     #build: flask
     image: dchidell/flask-stack-manager
     restart: unless-stopped
+    privileged: true # Required to truncate docker log files
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/containers/:/var/lib/docker/containers/ # Pass log files to flask
     labels:
       - infra=true
       - "traefik.enable=true"
