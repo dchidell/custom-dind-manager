@@ -3,7 +3,7 @@ services:
 
   syslog:
     #build: syslog
-    image: dchidell/syslog-web
+    image: ghcr.io/dchidell/syslog-web
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
@@ -15,7 +15,7 @@ services:
 
   snmptrap:
     #build: snmptrap
-    image: dchidell/snmptrap-web
+    image: ghcr.io/dchidell/snmptrap-web
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
@@ -28,7 +28,7 @@ services:
 
   tacacs:
     #build: tacacs
-    image: dchidell/tacacs-web
+    image: ghcr.io/dchidell/tacacs-web
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
@@ -39,7 +39,7 @@ services:
       
   radius:
     #build: radius
-    image: dchidell/radius-web
+    image: ghcr.io/dchidell/radius-web
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
@@ -50,7 +50,7 @@ services:
 
   dns:
     #build: dnsmasq
-    image: dchidell/dnsmasq-web
+    image: ghcr.io/dchidell/dnsmasq-web
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
@@ -62,7 +62,7 @@ services:
       - '53:53/udp'
       
   ntp:
-    image: dchidell/chronyd-web
+    image: ghcr.io/dchidell/chronyd-web
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
@@ -74,7 +74,7 @@ services:
       - '123:123/udp'
       
   vpn:
-    image: dchidell/vpn-web
+    image: ghcr.io/dchidell/vpn-web
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
