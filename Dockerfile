@@ -1,5 +1,5 @@
-FROM docker:18.06.3
-MAINTAINER David Chidell (dchidell@cisco.com)
+FROM docker:20.10
+LABEL maintainer="David Chidell (dchidell@cisco.com)"
 
 #RUN apk --no-cache add py-pip sudo gcc python-dev musl-dev libffi-dev openssl-dev && \
 RUN apk --no-cache add py-pip sudo && \
